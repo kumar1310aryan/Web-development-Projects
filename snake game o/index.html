@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Snake Game</h1>
+        <button id="startBtn">Start Game</button>
+        <div id="difficulty">
+            <input type="radio" id="easy" name="difficulty" value="easy" checked>
+            <label for="easy">Easy</label>
+            <input type="radio" id="medium" name="difficulty" value="medium">
+            <label for="medium">Medium</label>
+            <input type="radio" id="hard" name="difficulty" value="hard">
+            <label for="hard">Hard</label>
+        </div>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

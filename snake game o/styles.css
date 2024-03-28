@@ -1,0 +1,48 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f7f7f7;
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#startBtn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#startBtn:hover {
+    background-color: #45a049;
+}
+
+#difficulty {
+    margin-top: 20px;
+}
+
+#difficulty label {
+    margin-right: 10px;
+}
+
+#gameCanvas {
+    border: 5px solid #000;
+    background-color: #e6e6e6;
+    box-shadow: 0 0 10px #000;
+    border-radius: 10px;
+    display: none;
+}
