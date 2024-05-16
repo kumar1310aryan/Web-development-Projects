@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     searchBtn.addEventListener('click', () => {
         const city = locationInput.value;
-        const apiKey = '981f7f37b3a33434702f46a0be4dc097'; 
+        const apiKey = 'Replace it with your weather API key'; 
         const apiUrl = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
         fetch(apiUrl)
