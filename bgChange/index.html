@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Changer</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        font-family: Arial, sans-serif;
+        transition: background-color 0.5s ease;
+      }
+
+      h1 {
+        text-align: center;
+        text-shadow: 1px 1px 2px rgb(255, 255, 255);
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 5px;
+        background-color: #8711e2;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #8000b3;
+      }
+
+      .inputColor {
+        padding: 10px;
+        border: 2px solid #007bff;
+        border-radius: 5px;
+        margin: 5px;
+        outline: none;
+        transition: border-color 0.3s ease;
+      }
+
+      .inputColor:focus {
+        border-color: #a100b3d4;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Click to change the background colour.<br />
+      <button onclick="changeBg()">Click Me!!</button><br /><br />
+      Or choose One <br />
+      <input class="inputColor" type="color" />
+      <button onclick="set()">Set</button>
+    </h1>
+
+    <script>
+      function getRandomRGB() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
+        console.log(`rgb(${r}, ${g}, ${b})`);
+        return `rgb(${r}, ${g}, ${b})`;
+      }
+
+      function changeBg() {
+        const bgcolour = document.querySelector("body");
+        bgcolour.style.backgroundColor = getRandomRGB();
+      }
+
+      function set() {
+        const inputColor = document.querySelector(".inputColor").value;
+        const bgcolour = document.querySelector("body");
+        bgcolour.style.backgroundColor = inputColor;
+        console.log(inputColor);
+      }
+    </script>
+  </body>
+</html>
