@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic Tac Toe</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: "Arial", sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #39ff14;
+    }
+
+    h3 {
+      text-shadow: 0 0 5px #ff007f;
+    }
+
+    .main-container {
+      width: 80vw;
+      max-width: 400px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+    }
+
+    .cell {
+      width: 100%;
+      height: 100px;
+      background-color: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      color: #39ff14;
+      border: 2px solid red;
+      transition: background-color 0.3s, transform 0.3s;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .cell:hover {
+      background-color: #222;
+      cursor: pointer;
+    }
+
+    .glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(57, 255, 20, 0.5);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: -1;
+    }
+
+    .cell:hover .glow {
+      opacity: 1;
+    }
+
+    .outcome {
+      margin-top: 10px;
+      font-size: 20px;
+      color: #ff007f;
+      text-shadow: 0 0 10px #ff007f;
+    }
+
+    .jiggle {
+      animation: jiggle 0.5s ease-in-out;
+    }
+
+    @keyframes jiggle {
+      0% {
+        transform: translate(0);
+      }
+      25% {
+        transform: translate(-5px, 0);
+      }
+      50% {
+        transform: translate(5px, 0);
+      }
+      75% {
+        transform: translate(-5px, 0);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+
+    .scores {
+      margin: 10px;
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .play-again {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #ff007f;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .play-again:hover {
+      background-color: #d6006f;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+      .cell {
+        font-size: 30px;
+        height: 80px;
+      }
+      .play-again {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+      .scores, .outcome {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Tic Tac Toe</h1>
+  <h3 class="turn">Current Player: X</h3>
+  <div class="scores">
+    X: <span id="xScore">0</span> | O: <span id="oScore">0</span>
+  </div>
+  <div class="main-container">
+    <div class="cell" id="0" onclick="markCell(this)">
+      <div class="glow"></div>
+    </div>
+    <div class="cell" id="1" onclick="markCell(this)">
+      <div class="glow"></div>
+    </div>
+    <div class="cell" id="2" onclick="markCell(this)">
+      <div class="glow"></div>
+    </div>
+    <div class="cell" id="3" onclick="markCell(this)">
+      <div class="glow"></div>
+    </div>
+    <div class="cell" id="4" onclick="markCell(this)">
+      <div class="glow"></div>
+    </div>
+    <div class="cell" id="5" onclick="markCell(this)">
+      <div class="glow"></div>
+    </div>
+    <div class="cell" id="6" onclick="markCell(this)">
+      <div class="glow"></div>
+    </div>
+    <div class="cell" id="7" onclick="markCell(this)">
+      <div class="glow"></div>
+    </div>
+    <div class="cell" id="8" onclick="markCell(this)">
+      <div class="glow"></div>
+    </div>
+  </div>
+  <h1 class="outcome"></h1>
+  <button class="play-again" onclick="resetGame()">Play Again</button>
+
+  <script>
+    let player = "X";
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let xScore = 0;
+    let oScore = 0;
+    const outcomeDisplay = document.querySelector(".outcome");
+    const turnDisplay = document.querySelector(".turn");
+    const xScoreDisplay = document.getElementById("xScore");
+    const oScoreDisplay = document.getElementById("oScore");
+
+    function markCell(cell) {
+      const index = cell.id;
+
+      if (board[index] === "" && !hasWinner()) {
+        board[index] = player;
+        cell.innerHTML = player;
+        cell.style.color = player === "X" ? "#39ff14" : "#007fff";
+        cell.style.borderColor = player === "X" ? "#39ff14" : "#007fff";
+
+        if (hasWinner()) {
+          outcomeDisplay.innerHTML = `Player ${player} wins!`;
+          if (player === "X") {
+            xScore++;
+            xScoreDisplay.textContent = xScore;
+          } else {
+            oScore++;
+            oScoreDisplay.textContent = oScore;
+          }
+        } else if (board.every((cell) => cell !== "")) {
+          outcomeDisplay.innerHTML = "It's a draw!";
+          document.querySelectorAll(".cell").forEach((cell) => {
+            cell.classList.add("jiggle");
+          });
+        } else {
+          player = player === "X" ? "O" : "X";
+          turnDisplay.innerHTML = `Current Player: ${player}`;
+        }
+      }
+    }
+
+    function hasWinner() {
+      const winPatterns = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
+
+      for (const pattern of winPatterns) {
+        const [a, b, c] = pattern;
+        if (
+          board[a] &&
+          board[a] === board[b] &&
+          board[a] === board[c]
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function resetGame() {
+      board = ["", "", "", "", "", "", "", "", ""];
+      document.querySelectorAll(".cell").forEach((cell) => {
+        cell.innerHTML = "";
+        cell.classList.remove("jiggle");
+        cell.style.borderColor = "red";
+      });
+      player = "X";
+      turnDisplay.innerHTML = `Current Player: ${player}`;
+      outcomeDisplay.innerHTML = "";
+    }
+  </script>
+</body>
+</html>
